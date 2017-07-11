@@ -1,0 +1,8 @@
+iframely:
+  image: socialengine/iframely:develop
+  ports:
+    - 8061:8061
+  volumes:
+    - ./iframely/config.local.js:/iframely/config.local.js:ro
+  mem_limit: 500M
+  restart: always
