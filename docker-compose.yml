@@ -1,5 +1,5 @@
 iframely:
-  image: socialengine/iframely:develop
+  image: raybenc/iframely:latest
   ports:
     - 8061:8061
   volumes:
