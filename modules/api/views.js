@@ -54,7 +54,9 @@ function handleIframelyError(error, res, next) {
 
 module.exports = function(app) {
 
-    app.get('/iframely', function(req, res, next) {
+    var urlPrefix = CONFIG.URL_PREFIX;
+
+    app.get(urlPrefix + '/iframely', function(req, res, next) {
 
         var uri = prepareUri(req.query.uri || req.query.url);
 
@@ -189,7 +191,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/reader.js', function(req, res, next) {
+    app.get(urlPrefix + '/reader.js', function(req, res, next) {
 
         var uri = prepareUri(req.query.uri);
 
@@ -246,7 +248,7 @@ module.exports = function(app) {
 
     });
 
-    app.get('/render', function(req, res, next) {
+    app.get(urlPrefix + '/render', function(req, res, next) {
 
         var uri = prepareUri(req.query.uri);
 
@@ -316,7 +318,13 @@ module.exports = function(app) {
 
     });
 
-    app.get('/supported-plugins-re.json', function(req, res, next) {
+    app.get(urlPrefix + '/heartbeat', function(req, res, next) {
+        res.json({
+           response: 200
+        });
+    });
+
+    app.get(urlPrefix + '/supported-plugins-re.json', function(req, res, next) {
 
         var plugins = pluginLoader._plugins;
 
@@ -354,7 +362,7 @@ module.exports = function(app) {
         res.sendJsonCached(regexps);
     });
 
-    app.get('/oembed', function(req, res, next) {
+    app.get(urlPrefix + '/oembed', function(req, res, next) {
 
         var uri = prepareUri(req.query.url);
 

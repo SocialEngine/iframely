@@ -1,4 +1,6 @@
 (function() {
+    var urlPrefix = process.env.URL_PREFIX || '';
+
     var config = {
 
         // Specify a path for custom plugins. Custom plugins will override core plugins.
@@ -7,8 +9,10 @@
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 
+        URL_PREFIX: urlPrefix,
+
         // For embeds that require render, baseAppUrl will be used as the host.
-        baseAppUrl: process.env.BASE_URL,
+        baseAppUrl: process.env.BASE_URL + urlPrefix,
         relativeStaticUrl: "/r",
 
         // Or just skip built-in renders altogether
