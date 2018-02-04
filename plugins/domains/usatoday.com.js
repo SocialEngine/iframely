@@ -1,10 +1,10 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,9})\/[a-zA-Z0-9\-\_:\.]+\/?$/i,
-        /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,9})\/?$/i,
-        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/(\d{7,9})\/?$/i,
-        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-\_\.:]+\/(\d{7,9})\/?$/i
+        /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,9})\/[a-zA-Z0-9\-\_:\.]+\/?(?:[^\/]+)?$/i,
+        /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,9})\/?(?:[^\/]+)?$/i,
+        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/(\d{7,9})\/?(?:[^\/]+)?$/i,
+        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-\_\.:]+\/(\d{7,9})\/?(?:[^\/]+)?$/i
     ],
 
     provides: "gannettVideo",
@@ -31,11 +31,13 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.maybe_text_html, // let validators check it, including ssl
             'aspect-ratio': 16/9,
-            scrolling: 'no'
+            scrolling: 'no',
+            autoplay: 'autoplay=1'
         }
     },
 
     tests: [
+        "https://www.usatoday.com/videos/life/movies/2017/11/06/some-theaters-may-not-show-last-jedi-due-disneys-demands/107396942/?utm_source=feedblitz&utm_medium=FeedBlitzRss&utm_campaign=usatodaycommoney-topstories",
         "http://www.usatoday.com/media/cinematic/video/87694100/abdul-jabbar-mocks-trump-says-im-jordan/",
         "http://www.usatoday.com/videos/news/nation/2016/07/29/87694100/",
         "http://www.usatoday.com/videos/life/people/2016/11/03/93261598/",
@@ -50,11 +52,10 @@ module.exports = {
         "http://www.courier-journal.com/videos/sports/college/kentucky/2015/08/17/31862551/",
         "http://www.newarkadvocate.com/videos/sports/high-school/football/2015/08/15/31789999/",
         "http://www.citizen-times.com/videos/news/2015/08/17/31865067/",
-        "http://www.bucyrustelegraphforum.com/videos/news/2015/08/15/31799953/",
         "http://www.sctimes.com/videos/weather/2015/08/17/31839437/",
         "http://www.baxterbulletin.com/videos/news/local/2015/08/17/31843911/",
         "http://www.delmarvanow.com/videos/sports/high-school/2015/08/18/31933549/",
-        "http://www.courier-journal.com/videos/entertainment/2015/08/18/31920575/",
+        "https://www.courier-journal.com/videos/entertainment/2015/08/24/31920575/",
         "http://www.detroitnews.com/videos/sports/nfl/lions/2015/08/19/31954181/",
         "http://www.press-citizen.com/videos/news/education/k-12/2015/08/18/31959369/",
         "http://www.tennessean.com/videos/entertainment/2015/08/18/31958929/",

@@ -16,7 +16,7 @@ module.exports = {
     // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result
     // -- plugin redirect (by "htmlparser") /error/browser-not-supported.php
 
-    getLink: function(oembed) {
+    getLink: function(oembed, options) {
 
         var $container = cheerio('<div>');
 
@@ -30,8 +30,15 @@ module.exports = {
         // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
 
+            var src = $iframe.attr('src');
+
+            // configure as `theme: 'white'`
+            if (options.getProviderOptions('spotify.theme')) {
+                src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
+            }
+
             return [{
-                href: $iframe.attr('src'),
+                href: src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 height: oembed.height || 80
@@ -62,7 +69,6 @@ module.exports = {
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
-        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
-        "https://play.spotify.com/artist/0BFm7QbsegelxqVIJdXCjq"    
+        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4"
     ]
 };

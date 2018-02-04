@@ -85,7 +85,8 @@ module.exports = {
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                     width: oembed.width,
-                    height: oembed.height
+                    height: oembed.height,
+                    scrolling: 'no'
                 }, {
                     href: oembed.thumbnail_url,
                     rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
@@ -101,11 +102,11 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://www.kickstarter.com/discover/popular?ref=home_popular",
-        selector: ".project-title a",
+        noFeeds: true,
         skipMixins: [
             "twitter-player",
-            "og-video"
+            "og-video",
+            "favicon"
         ]
     },
         "http://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",

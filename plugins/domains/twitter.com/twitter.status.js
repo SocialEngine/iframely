@@ -174,7 +174,7 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
+            description: entities.decodeHTML(twitter_oembed.html.replace(/<(.*?)>/g, '')),
             canonical: twitter_oembed.url
         };
     },
@@ -197,7 +197,7 @@ module.exports = {
 
         if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
             && twitter_og && twitter_og.video && twitter_og.image 
-            && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
+            && /^https?:\/\/pbs\.twimg\.com\/(?:media|amplify|ext_tw)/i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {            
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
 
@@ -259,7 +259,6 @@ module.exports = {
         "https://twitter.com/TSwiftOnTour/status/343846711346737153",
 
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
-        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1",
         "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image
     ]
 };

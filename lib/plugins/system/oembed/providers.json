@@ -56,7 +56,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document)/(.*)"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document|embeds)/(.*)"
         ],
         "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
@@ -185,9 +185,9 @@
     {
         "name": "Twitter Users",
         "templates": [
-            "twitter\\.com/(\\w+)$"
+            "(twitter\\.com/\\w+)/?$"
         ],
-        "endpoint": "https://publish.twitter.com/oembed?i=user&url={url}"
+        "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
     {
         "name": "GfyCat",
@@ -294,6 +294,27 @@
         "endpoint": "http://video.yandex.ru/oembed.{format}"
     },
     {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}&track={2}"
+    },    
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?track={1}"
+    },
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}"
+    },    
+    {
         "name": "qz.com",
         "templates": [
             "qz\\.com/\\d+/[a-zA-Z0-9_-]+/"
@@ -310,7 +331,8 @@
     {
         "name": "Mixcloud",
         "templates": [
-            "www\\.mixcloud\\.com/.+/.+/.*"
+            "www\\.mixcloud\\.com/.+/.+/.*",
+            "www\\.mixcloud\\.com/.+"
         ],
         "endpoint": "http://www.mixcloud.com/oembed/"
     },
@@ -365,10 +387,19 @@
     {
         "name": "Polldaddy",
         "templates": [
-            "polldaddy\\.com/poll/.*"
+            "polldaddy\\.com/(?:poll|s)/.*",
+            ".*\\.polldaddy.com/(?:poll|s)/.*"
         ],
         "endpoint": "http://polldaddy.com/oembed/"
     },
+    {
+        "name": "Polleverywhere",
+        "templates": [
+            "polleverywhere\\.com/.*",
+            "pollev\\.com/.*"
+        ],
+        "endpoint": "https://www.polleverywhere.com/services/oembed.{format}"        
+    },    
     {
         "name": "Meetup",
         "templates": [
@@ -396,9 +427,9 @@
     {
         "name": "Ted",
         "templates": [
-            "ted\\.com/talks/.*"
+            "ted\\.com/talks/([a-zA-Z0-9-_]+)"
         ],
-        "endpoint": "http://www.ted.com/talks/oembed.{format}"
+        "endpoint": "http://www.ted.com/services/v1/oembed.{format}?url=https://ted.com/talks/{1}"        
     },
     {
         "name": "Codepen",
@@ -439,10 +470,17 @@
     {
         "name": "Tumblr",
         "templates": [
-            "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
+            "[a-z0-9-]+\\.tumblr\\.com/post/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
     },
+    {
+        "name": "Tumblr",
+        "templates": [
+            "([a-z0-9-]+)\\.tumblr\\.com/image/(\\d+)"
+        ],
+        "endpoint": "https://www.tumblr.com/oembed/1.0?url=http://{1}.tumblr.com/post/{2}"
+    },    
     {
         "name": "roomshare.jp",
         "templates": [
@@ -564,6 +602,13 @@
         "endpoint": "https://www.reverbnation.com/oembed"
     },
     {
+        "name": "Twitch Beta",
+        "templates": [
+            "go.twitch\\.tv/([a-zA-Z0-9_\/]+)"
+        ],
+        "endpoint": "https://api.twitch.tv/v4/oembed?url=https://twitch.tv/{1}&format={format}"
+    },    
+    {
         "name": "Twitch",
         "templates": [
             "twitch\\.tv/([a-zA-Z0-9_]+)/",
@@ -591,5 +636,36 @@
             "kickstarter.com/projects/.*"            
         ],
         "endpoint": "https://www.kickstarter.com/services/oembed"        
+    }, {
+        "name": "Producthunt Comments",
+        "templates": [
+            "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
+        ],
+        "endpoint": "https://api.producthunt.com/widgets/oembed?url=https://www.producthunt.com/comments/{1}"
+    }, {
+        "name": "Office Forms",
+        "templates": [        
+            "forms.office.com/.*"            
+        ],
+        "endpoint": "https://forms.office.com/formapi/api/embed"
+    }, {
+        "name": "Tapewrite",
+        "templates": [
+            "tapewrite.com/tapes/play/.*"
+        ],
+        "endpoint": "https://tapewrite.com/REST/oembed"
+    }, {
+        "name": "someecards",
+        "templates": [            
+            "someecards.com/usercards/viewcard/.*",
+            "someecards.com/\\w+\\-cards/.*"
+        ],
+        "endpoint": "https://www.someecards.com/v2/oembed"
+    }, {
+        "name": "Datawrapper",
+        "templates": [            
+            "datawrapper.dwcdn.net/.*"
+        ],
+        "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
     }
 ]

@@ -49,7 +49,7 @@ module.exports = {
 
     getMeta: function(gmap) {
         return {
-            title: (gmap.q && decodeURIComponent(gmap.q).replace ('+', ' ').replace ('%20', ' ')) || gmap.center || "Google Maps",
+            title: (gmap.q && decodeURIComponent(gmap.q).replace (/\+/g, ' ').replace (/%20/g, ' ')) || gmap.center || "Google Maps",
             site: "Google Maps"
         }
     },
@@ -124,7 +124,8 @@ module.exports = {
 
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
-                responseStatusCode: 415
+                responseStatusCode: 415,
+                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key'>Get one</a> and add it to the provider options."
             });
         }
 

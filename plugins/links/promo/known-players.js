@@ -45,12 +45,12 @@ module.exports = {
 
 
         // or theplatform flash
-        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf\/select\/(?:media\/)?([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf(\/select\/(?:media\/)?[_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
                 __promoUri: {
-                    url: 'https://player.theplatform.com/p/' + urlMatch[1] + '/' + urlMatch[2] + '/select/' + urlMatch[3] + '?for=iframely', // otherwise player=canonical,
+                    url: 'https://player.theplatform.com/p/' + urlMatch[1] + '/' + urlMatch[2] + urlMatch[3] + '?for=iframely', // otherwise player=canonical,
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
             };
@@ -85,7 +85,7 @@ module.exports = {
         }
 
         // or wistia
-        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.net\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
@@ -105,6 +105,26 @@ module.exports = {
                     url: urlMatch[0],
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
+            };
+        }
+
+        // or brightcove
+        urlMatch = video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i) ||
+                   video_src.match(/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i);
+
+        if (urlMatch) {
+            return {
+                __promoUri: video_src + (!/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i.test(video_src) ? '&autoplay=true': '')
+            };
+        }
+
+        // Or Soundcloud || Giphy
+        urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i) || video_src.match(/^https?:\/\/giphy\.com\/embed/i);
+
+
+        if (urlMatch) {
+            return {
+                __promoUri: video_src
             };
         } 
 

@@ -10,6 +10,7 @@ module.exports = {
         "oembed-site",
         "oembed-title",
         "keywords",
+        "twitter-description",
         // "twitter-image",
         "domain-icon"
     ],
@@ -35,13 +36,16 @@ module.exports = {
             });
         }
 
-        links.push({
-            href: oembed.image,
-            type: CONFIG.T.image_gif,
-            rel: CONFIG.R.image,
-            width: oembed.width,
-            height: oembed.height
-        });
+        if (oembed.type == 'photo') {
+
+            links.push({
+                href: oembed.image || oembed.url,
+                type: CONFIG.T.image_gif,
+                rel: CONFIG.R.image,
+                width: oembed.width,
+                height: oembed.height
+            });
+        }
 
         var thumbnail = twitter.image && (twitter.image.src || twitter.image.url); 
 
@@ -50,7 +54,7 @@ module.exports = {
             // from https://media.giphy.com/media/.../giphy-facebook_s.jpg?t=1
             // to https://media3.giphy.com/media/.../giphy_s.gif
 
-            thumbnail = thumbnail.replace(/\/giphy\-facebook_s\.jpg\?t=1$/, '/giphy_s.gif?t=1');
+            thumbnail = thumbnail.replace(/\/giphy\-facebook_s\.jpg$/, '/giphy_s.gif');
         }
 
         links.push({
